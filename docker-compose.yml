@@ -13,7 +13,6 @@ services:
       - PGID=1000
       - SERVERURL=37.113.133.241
       - SERVERPORT=447
-      - PEERS=100
       - TZ=Asia/Yekaterinburg
     cap_add:
       - NET_ADMIN
