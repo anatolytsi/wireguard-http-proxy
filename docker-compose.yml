@@ -8,18 +8,26 @@ services:
     container_name: wireguard
     hostname: wireguard
     environment:
-      PEERS: false
-      PUID : 1000
-      PGID : 1000
+      - PEERS=100
+      - PUID=1000
+      - PGID=1000
+      - SERVERURL=37.113.133.241
+      - SERVERPORT=447
+      - PEERS=100
+      - TZ=Asia/Yekaterinburg
     cap_add:
       - NET_ADMIN
+      - SYS_MODULE
     volumes:
+      - ./config:/config
+      - /lib/modules:/lib/modules
       - ./conf.d/wireguard:/config
       - ./conf.d/tinyproxy:/tinyproxy
       - ./docker/start.sh:/start.sh
       - ./logs/tinyproxy/:/var/log/tinyproxy/:rw,cached
     ports:
-      - "62820:51820/udp"
+      - "447:51820/udp"
       - "8888:8888/tcp"
     sysctls:
       - net.ipv4.conf.all.src_valid_mark=1
+    restart: unless-stopped
